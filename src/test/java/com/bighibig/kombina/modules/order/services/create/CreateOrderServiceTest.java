@@ -1,4 +1,4 @@
-package com.bighibig.kombina.module.order.services.create;
+package com.bighibig.kombina.modules.order.services.create;
 
 import com.bighibig.kombina.modules.order.core.Order;
 import com.bighibig.kombina.modules.order.core.enums.OrderStatus;
@@ -29,7 +29,7 @@ public class CreateOrderServiceTest {
     void shouldCreateOrderSuccessfully() {
         CreateOrderDtoIn dto = new CreateOrderDtoIn("client1", "test");
         Order order = Order.builder()
-                .id(1L)
+                .orderId(1L)
                 .orderOwner("client1")
                 .description("test")
                 .build();
@@ -39,7 +39,7 @@ public class CreateOrderServiceTest {
         CreateOrderDtoOut result = createOrderService.execute(dto);
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(order.getId(), result.orderId(), "Order id not created");
+        Assertions.assertEquals(order.getOrderId(), result.orderId(), "Order id not created");
         Assertions.assertEquals(order.getOrderOwner(), result.orderOwner(), "Order owner not created");
         Assertions.assertEquals(order.getDescription(), result.description(), "Order description not created");
         Assertions.assertEquals(OrderStatus.PENDING, result.status(), "Order status not created");

@@ -1,4 +1,4 @@
-package com.bighibig.kombina.module.order.services.findAll;
+package com.bighibig.kombina.modules.order.services.findAll;
 
 import com.bighibig.kombina.modules.order.core.Order;
 import com.bighibig.kombina.modules.order.core.enums.OrderStatus;
@@ -27,17 +27,17 @@ public class FindAllOrdersTest {
     @Test
     void shouldReturnAllOrders() {
         Order order1 = Order.builder()
-                .id(1L)
+                .orderId(1L)
                 .orderOwner("client1")
                 .description("test")
-                .status(OrderStatus.PENDING)
+                .orderStatus(OrderStatus.PENDING)
                 .build();
 
         Order order2 = Order.builder()
-                .id(2L)
+                .orderId(2L)
                 .orderOwner("client2")
                 .description("test")
-                .status(OrderStatus.PENDING)
+                .orderStatus(OrderStatus.PENDING)
                 .build();
 
         List<Order> mockOrders = Arrays.asList(order1, order2);

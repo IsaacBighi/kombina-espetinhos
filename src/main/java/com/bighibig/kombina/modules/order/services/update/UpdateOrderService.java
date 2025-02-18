@@ -15,7 +15,7 @@ public class UpdateOrderService {
         this.orderRepository = orderRepository;
     }
 
-    public UpdateOrderDtoOut execute(long orderId, UpdateOrderDtoIn dto) {
+    public UpdateOrderDtoOut execute(Long orderId, UpdateOrderDtoIn dto) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID" + orderId + " not found" ));
 
@@ -29,16 +29,16 @@ public class UpdateOrderService {
             order.setTotalPrice(dto.totalPrice());
         }
         if(dto.status() != null) {
-            order.setStatus(dto.status());
+            order.setOrderStatus(dto.status());
         }
 
         orderRepository.save(order);
 
         return new UpdateOrderDtoOut(
-                order.getId(),
+                order.getOrderId(),
                 order.getOrderOwner(),
                 order.getDescription(),
-                order.getStatus(),
+                order.getOrderStatus(),
                 order.getTotalPrice()
         );
     }

@@ -1,4 +1,4 @@
-package com.bighibig.kombina.module.order.services.findById;
+package com.bighibig.kombina.modules.order.services.findById;
 
 import com.bighibig.kombina.modules.order.core.Order;
 import com.bighibig.kombina.modules.order.repository.OrderRepository;
@@ -27,7 +27,7 @@ public class FindOrderByIdServiceTest {
     @Test
     void shouldReturnOrderWhenExists() {
         Order order = Order.builder()
-                .id(1L)
+                .orderId(1L)
                 .orderOwner("client1")
                 .description("test")
                 .build();
@@ -36,7 +36,7 @@ public class FindOrderByIdServiceTest {
         Order result = findOrderByIdService.execute(1L);
 
         Assertions.assertNotNull(result, "Order not created");
-        Assertions.assertEquals(order.getId(), result.getId(), "Order id not created");
+        Assertions.assertEquals(order.getOrderId(), result.getOrderId(), "Order id not created");
         Assertions.assertEquals(order.getOrderOwner(), result.getOrderOwner(), "Order owner not created");
         Assertions.assertEquals(order.getDescription(), result.getDescription(), "Order description not created");
 

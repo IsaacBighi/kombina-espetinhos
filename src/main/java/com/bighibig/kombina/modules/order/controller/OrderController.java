@@ -9,6 +9,7 @@ import com.bighibig.kombina.modules.order.services.create.CreateOrderService;
 import com.bighibig.kombina.modules.order.services.delete.DeleteOrderService;
 import com.bighibig.kombina.modules.order.services.findAll.FindAllOrdersService;
 import com.bighibig.kombina.modules.order.services.findById.FindOrderByIdService;
+import com.bighibig.kombina.modules.order.services.findByStatus.FindOrdersByStatusService;
 import com.bighibig.kombina.modules.order.services.update.UpdateOrderService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import java.util.List;
 public class OrderController {
     private final FindOrderByIdService findOrderByIdService;
     private final FindAllOrdersService findAllOrdersService;
+    private final FindOrdersByStatusService findOrdersByStatusService;
     private final CreateOrderService createOrderService;
     private final UpdateOrderService updateOrderService;
     private final DeleteOrderService deleteOrderService;
@@ -29,12 +31,14 @@ public class OrderController {
     public OrderController(
             FindOrderByIdService findOrderByIdService,
             FindAllOrdersService findAllOrdersService,
+            FindOrdersByStatusService findOrdersByStatusService,
             CreateOrderService createOrderService,
             UpdateOrderService updateOrderService,
             DeleteOrderService deleteOrderService
     ) {
         this.findOrderByIdService = findOrderByIdService;
         this.findAllOrdersService = findAllOrdersService;
+        this.findOrdersByStatusService = findOrdersByStatusService;
         this.createOrderService = createOrderService;
         this.updateOrderService = updateOrderService;
         this.deleteOrderService = deleteOrderService;
@@ -49,6 +53,11 @@ public class OrderController {
     public ResponseEntity<Order> getOrder(@PathVariable long id) {
         Order foundOrder = findOrderByIdService.execute(id);
         return new ResponseEntity<Order>(foundOrder, HttpStatus.OK);
+    }
+
+    @GetMapping("/pending")
+    public List<Order> getPendingOrders() {
+        return findOrdersByStatusService.execute();
     }
 
     @PostMapping
@@ -66,6 +75,6 @@ public class OrderController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteOrder(@PathVariable long id) {
         deleteOrderService.execute(id);
-        return ResponseEntity.ok().body("Order deleted");
+        return ResponseEntity.noContent().build();
     }
 }

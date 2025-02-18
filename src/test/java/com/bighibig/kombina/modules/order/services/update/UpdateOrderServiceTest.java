@@ -1,4 +1,4 @@
-package com.bighibig.kombina.module.order.services.update;
+package com.bighibig.kombina.modules.order.services.update;
 
 import com.bighibig.kombina.modules.order.core.Order;
 import com.bighibig.kombina.modules.order.core.enums.OrderStatus;
@@ -38,11 +38,11 @@ public class UpdateOrderServiceTest {
         orderId = 1L;
 
         existingOrder = Order.builder()
-                .id(orderId)
+                .orderId(orderId)
                 .orderOwner("old client")
                 .description("old description")
                 .totalPrice(BigDecimal.valueOf(100))
-                .status(OrderStatus.PENDING)
+                .orderStatus(OrderStatus.PENDING)
                 .build();
 
         updateDto = new UpdateOrderDtoIn(
@@ -56,11 +56,11 @@ public class UpdateOrderServiceTest {
     @Test
     void shouldUpdateOrderSuccessfully() {
         Order updatedOrder = Order.builder()
-                .id(orderId)
+                .orderId(orderId)
                 .orderOwner(updateDto.orderOwner())
                 .description(updateDto.description())
                 .totalPrice(updateDto.totalPrice())
-                .status(updateDto.status())
+                .orderStatus(updateDto.status())
                 .build();
 
         when(orderRepository.findById(orderId)).thenReturn(Optional.of(existingOrder));
@@ -73,7 +73,7 @@ public class UpdateOrderServiceTest {
         Assertions.assertEquals(updateDto.orderOwner(), result.orderOwner(), "order owner should be the same");
         Assertions.assertEquals(updateDto.description(), result.description(), "description should be the same");
         Assertions.assertEquals(updateDto.totalPrice(), result.totalPrice(), "total price should be the same");
-        Assertions.assertEquals(updateDto.status(), result.status(), "status should be the same");
+        Assertions.assertEquals(updateDto.status(), result.orderStatus(), "status should be the same");
 
         verify(orderRepository, times(1)).findById(orderId);
         verify(orderRepository, times(1)).save(any(Order.class));

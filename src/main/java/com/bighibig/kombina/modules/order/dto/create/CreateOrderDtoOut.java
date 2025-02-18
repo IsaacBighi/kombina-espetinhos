@@ -5,7 +5,7 @@ import com.bighibig.kombina.modules.order.core.enums.OrderStatus;
 import java.math.BigDecimal;
 
 public record CreateOrderDtoOut(
-        long orderId,
+        Long orderId,
         String orderOwner,
         String description,
         OrderStatus status,

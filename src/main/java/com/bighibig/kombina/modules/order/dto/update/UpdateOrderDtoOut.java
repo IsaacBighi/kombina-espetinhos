@@ -5,9 +5,9 @@ import com.bighibig.kombina.modules.order.core.enums.OrderStatus;
 import java.math.BigDecimal;
 
 public record UpdateOrderDtoOut(
-        long orderId,
+        Long orderId,
         String orderOwner,
         String description,
-        OrderStatus status,
+        OrderStatus orderStatus,
         BigDecimal totalPrice
 ) {}

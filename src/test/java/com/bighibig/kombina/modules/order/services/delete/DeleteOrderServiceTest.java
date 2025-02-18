@@ -1,4 +1,4 @@
-package com.bighibig.kombina.module.order.services.delete;
+package com.bighibig.kombina.modules.order.services.delete;
 
 import com.bighibig.kombina.modules.order.core.Order;
 import com.bighibig.kombina.modules.order.exceptions.OrderNotFoundException;
@@ -27,7 +27,7 @@ public class DeleteOrderServiceTest {
     void shouldDeleteOrderSuccessfully() {
         long orderId = 1L;
         Order order = Order.builder()
-                .id(orderId)
+                .orderId(orderId)
                 .orderOwner("client1")
                 .description("test")
                 .build();

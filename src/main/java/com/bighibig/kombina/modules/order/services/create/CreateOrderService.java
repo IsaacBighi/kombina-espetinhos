@@ -28,10 +28,10 @@ public class CreateOrderService {
         Order savedOrder = orderRepository.save(order);
 
         return new CreateOrderDtoOut(
-                savedOrder.getId(),
+                savedOrder.getOrderId(),
                 savedOrder.getOrderOwner(),
                 savedOrder.getDescription(),
-                savedOrder.getStatus(),
+                savedOrder.getOrderStatus(),
                 savedOrder.getTotalPrice()
         );
     }

@@ -13,10 +13,10 @@ public class DeleteOrderService {
         this.orderRepository = orderRepository;
     }
 
-    public void execute(long orderId) {
+    public void execute(Long orderId) {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order with ID " + orderId + " not found"));
 
-        orderRepository.deleteById(order.getId());
+        orderRepository.deleteById(order.getOrderId());
     }
 }

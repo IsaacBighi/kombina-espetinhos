@@ -1,4 +1,4 @@
-package com.bighibig.kombina.module.order.repository;
+package com.bighibig.kombina.modules.order.repository;
 
 import com.bighibig.kombina.modules.order.core.Order;
 import com.bighibig.kombina.modules.order.core.enums.OrderStatus;
@@ -54,13 +54,13 @@ public class OrderRepositoryTest {
                 .build();
 
         orderRepository.save(order);
-        Optional<Order> foundOrder = orderRepository.findById(order.getId());
+        Optional<Order> foundOrder = orderRepository.findById(order.getOrderId());
 
         Assertions.assertTrue(foundOrder.isPresent(), "Order should exist");
     }
 
     @Test
-    void shouldReturnOrderStatus() {
+    void shouldReturnOrderStatusPending() {
         Order order1 = Order.builder()
                 .orderOwner("client1")
                 .description("test")
@@ -74,7 +74,7 @@ public class OrderRepositoryTest {
         Order order3 = Order.builder()
                 .orderOwner("client3")
                 .description("test")
-                .status(OrderStatus.PAID)
+                .orderStatus(OrderStatus.PAID)
                 .build();
 
         orderRepository.save(order1);
@@ -93,7 +93,7 @@ public class OrderRepositoryTest {
                 .build();
 
         Order savedOrder = orderRepository.save(order);
-        Optional<Order> foundOrder = orderRepository.findById(savedOrder.getId());
+        Optional<Order> foundOrder = orderRepository.findById(savedOrder.getOrderId());
 
         Assertions.assertTrue(foundOrder.isPresent());
         Assertions.assertEquals(savedOrder.getOrderOwner(), foundOrder.get().getOrderOwner(), "Order owner should match");
@@ -105,22 +105,22 @@ public class OrderRepositoryTest {
         Order order = Order.builder()
                 .orderOwner("client1")
                 .description("test1")
-                .status(OrderStatus.PAID)
+                .orderStatus(OrderStatus.PAID)
                 .build();
 
         orderRepository.save(order);
 
         order.setOrderOwner("client2");
         order.setDescription("test2");
-        order.setStatus(OrderStatus.PAID);
+        order.setOrderStatus(OrderStatus.PAID);
 
         Order updatedOrder = orderRepository.save(order);
-        Optional<Order> foundOrder = orderRepository.findById(updatedOrder.getId());
+        Optional<Order> foundOrder = orderRepository.findById(updatedOrder.getOrderId());
 
         Assertions.assertTrue(foundOrder.isPresent());
         Assertions.assertEquals("client2", foundOrder.get().getOrderOwner(), "Order owner should match");
         Assertions.assertEquals("test2", foundOrder.get().getDescription(), "Order description should match");
-        Assertions.assertEquals(OrderStatus.PAID, updatedOrder.getStatus(), "Order status should match");
+        Assertions.assertEquals(OrderStatus.PAID, updatedOrder.getOrderStatus(), "Order status should match");
     }
 
     @Test
@@ -131,7 +131,7 @@ public class OrderRepositoryTest {
                 .build();
 
         Order savedOrder = orderRepository.save(order);
-        long orderId = savedOrder.getId();
+        long orderId = savedOrder.getOrderId();
 
         Assertions.assertTrue(orderRepository.findById(orderId).isPresent());
         orderRepository.deleteById(orderId);

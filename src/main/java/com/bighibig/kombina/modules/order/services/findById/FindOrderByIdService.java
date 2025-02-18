@@ -15,7 +15,7 @@ public class FindOrderByIdService {
         this.orderRepository = orderRepository;
     }
 
-    public Order execute(long orderId) {
+    public Order execute(Long orderId) {
         return orderRepository.findById(orderId).orElseThrow(
                 () -> new OrderNotFoundException("Order with " + orderId + " not found")
         );
